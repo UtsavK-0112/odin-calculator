@@ -11,5 +11,5 @@
 
 .--calculator-button#enter {
     grid-column: 4 / 5;
-    grid-row: 4 / 6;
+    grid-row: 5 / 6;
 }
