@@ -2,13 +2,21 @@ const displayText = document.querySelector(".--display-text");
 
 const calculatorButtons = document.querySelectorAll(".--calculator-button");
 const numberButtons = document.querySelectorAll(".--calculator-button.number");
+const operatorButtons = document.querySelectorAll(
+    ".--calculator-button.operator"
+);
 const clearButton = document.querySelector(".--calculator-button#clear");
 const negativeButton = document.querySelector(".--calculator-button#negative");
 const percentageButton = document.querySelector(
     ".--calculator-button#percentage"
 );
 
+const enterButton = document.querySelector(".--calculator-button#enter");
+
 let total = 0;
+let temp1 = null;
+let currentOperator = null;
+let temp2 = null;
 
 // OPERATIONS
 
@@ -53,12 +61,24 @@ function setTotal(newTotal) {
 }
 
 // EVENT LISTENERS
-console.log(numberButtons);
+
 for (numberButton of numberButtons) {
     numberButton.addEventListener("click", (event) => {
         const number = parseInt(event.target.innerText);
         total;
         setTotal(getTotal() * 10 + number);
+    });
+}
+
+console.log(operatorButtons);
+
+for (operatorButton of operatorButtons) {
+    operatorButton.addEventListener("click", (event) => {
+        temp1 = getTotal();
+        setTotal(clear());
+
+        const operator = event.target.innerText;
+        currentOperator = operator;
     });
 }
 
@@ -72,4 +92,35 @@ negativeButton.addEventListener("click", (event) => {
 
 percentageButton.addEventListener("click", (event) => {
     setTotal(percentage(getTotal()));
+});
+
+enterButton.addEventListener("click", (event) => {
+    temp2 = getTotal();
+
+    if (currentOperator == null) {
+        temp1 = getTotal();
+        setTotal(clear());
+        return;
+    }
+
+    let operationFunction;
+
+    switch (currentOperator) {
+        case "+":
+            operationFunction = add;
+            break;
+        case "-":
+            operationFunction = subtract;
+            break;
+        case "*":
+            operationFunction = multiply;
+            break;
+        case "/":
+            operationFunction = divide;
+            break;
+        default:
+            break;
+    }
+
+    setTotal(operationFunction(temp1, temp2));
 });
