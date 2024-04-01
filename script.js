@@ -10,13 +10,15 @@ const negativeButton = document.querySelector(".--calculator-button#negative");
 const percentageButton = document.querySelector(
     ".--calculator-button#percentage"
 );
+const decimalButton = document.querySelector(".--calculator-button#decimal");
 
 const enterButton = document.querySelector(".--calculator-button#enter");
 
-let total = 0;
-let temp1 = null;
+let num1 = "0";
+let num2 = "0";
+let total = "0";
+let temp = "0";
 let currentOperator = null;
-let temp2 = null;
 
 // OPERATIONS
 
@@ -56,49 +58,89 @@ function getTotal() {
 }
 
 function setTotal(newTotal) {
-    total = newTotal;
+    total = newTotal.toString();
+
+    // strip preceding zeros
+    if (total[1] != ".") {
+        startIndex = Array.from(total).findIndex((char) => char != "0");
+        total = Array.from(total).slice(startIndex).join("");
+    }
     displayText.innerText = total;
+}
+
+function disableChangeButtons() {
+    for (operatorButton of operatorButtons) {
+        operatorButton.setAttribute("disabled", "");
+    }
+    negativeButton.setAttribute("disabled", "");
+    percentageButton.setAttribute("disabled", "");
+    enterButton.setAttribute("disabled", "");
+}
+
+function enableChangeButtons() {
+    for (operatorButton of operatorButtons) {
+        operatorButton.removeAttribute("disabled");
+    }
+    negativeButton.removeAttribute("disabled");
+    percentageButton.removeAttribute("disabled");
+    enterButton.removeAttribute("disabled");
+}
+
+function disableDecimalButton() {
+    decimalButton.setAttribute("disabled", "");
+}
+
+function enableDecimalButton() {
+    decimalButton.removeAttribute("disabled");
 }
 
 // EVENT LISTENERS
 
 for (numberButton of numberButtons) {
     numberButton.addEventListener("click", (event) => {
-        const number = parseInt(event.target.innerText);
-        total;
-        setTotal(getTotal() * 10 + number);
+        setTotal(getTotal() + event.target.innerText);
+
+        if (event.target.innerText == ".") {
+            disableChangeButtons();
+            disableDecimalButton();
+        } else {
+            enableChangeButtons();
+        }
     });
 }
 
-console.log(operatorButtons);
-
 for (operatorButton of operatorButtons) {
     operatorButton.addEventListener("click", (event) => {
-        temp1 = getTotal();
+        num1 = getTotal();
         setTotal(clear());
 
         const operator = event.target.innerText;
         currentOperator = operator;
+
+        enableDecimalButton();
     });
 }
 
 clearButton.addEventListener("click", (event) => {
     setTotal(clear());
+    num1 = clear();
+    num2 = clear();
+    enableChangeButtons();
+    enableDecimalButton();
 });
 
 negativeButton.addEventListener("click", (event) => {
-    setTotal(negative(getTotal()));
+    setTotal(negative(parseFloat(getTotal())).toString());
 });
 
 percentageButton.addEventListener("click", (event) => {
-    setTotal(percentage(getTotal()));
+    setTotal(percentage(parseFloat(getTotal())).toString());
 });
 
 enterButton.addEventListener("click", (event) => {
-    temp2 = getTotal();
-
+    num2 = getTotal();
     if (currentOperator == null) {
-        temp1 = getTotal();
+        num1 = getTotal();
         setTotal(clear());
         return;
     }
@@ -112,7 +154,7 @@ enterButton.addEventListener("click", (event) => {
         case "-":
             operationFunction = subtract;
             break;
-        case "*":
+        case "x":
             operationFunction = multiply;
             break;
         case "/":
@@ -122,5 +164,11 @@ enterButton.addEventListener("click", (event) => {
             break;
     }
 
-    setTotal(operationFunction(temp1, temp2));
+    setTotal(
+        (+operationFunction(parseFloat(num1), parseFloat(num2)).toFixed(
+            6
+        )).toString()
+    );
+
+    console.log(num1, num2, getTotal());
 });
