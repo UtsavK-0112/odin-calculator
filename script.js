@@ -130,11 +130,11 @@ clearButton.addEventListener("click", (event) => {
 });
 
 negativeButton.addEventListener("click", (event) => {
-    setTotal(negative(parseFloat(getTotal())).toString());
+    setTotal((+negative(parseFloat(total)).toFixed(6)).toString());
 });
 
 percentageButton.addEventListener("click", (event) => {
-    setTotal(percentage(parseFloat(getTotal())).toString());
+    setTotal((+percentage(parseFloat(total)).toFixed(6)).toString());
 });
 
 enterButton.addEventListener("click", (event) => {
