@@ -1,7 +1,143 @@
+body {
+    font-family: "Merienda", cursive;
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    justify-content: space-evenly;
+}
+
+.background {
+    background-image: url("—Pngtree—hand-painted\ indoor\ study\ room\ background_920947.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    z-index: -10;
+    filter: blur(10px);
+}
+
+.calculator {
+    width: min-content;
+    margin-inline: 3rem;
+    margin-bottom: 2rem;
+}
+
+.head {
+    background-color: #ffcfeb;
+    width: 100%;
+    height: 15rem;
+    border-radius: 10rem 10rem 0 0;
+    box-shadow: 15px 15px 0px #dfa8c8;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.face {
+    background-color: white;
+    border-radius: 50% 50% 10% 10%;
+    width: 60%;
+    height: 50%;
+    position: relative;
+    border: 2px solid rgb(219, 170, 209);
+}
+
+.left-eye,
+.right-eye {
+    position: absolute;
+
+    width: 20px;
+    height: 40px;
+    background-color: rgb(192, 131, 95);
+    border-radius: 50%;
+}
+
+.left-eye {
+    left: 2rem;
+    top: 2rem;
+}
+
+.right-eye {
+    right: 2rem;
+    top: 2rem;
+}
+
+.ear-left {
+    width: 75px;
+    height: 150px;
+    background-color: #ffcfeb;
+    position: absolute;
+    border-radius: 50%;
+    transform: rotate(45deg);
+    left: -100px;
+    top: -100px;
+}
+
+.ear-right {
+    width: 75px;
+    height: 150px;
+    background-color: #ffcfeb;
+    position: absolute;
+    border-radius: 50%;
+    transform: rotate(-45deg);
+    right: -100px;
+    top: -100px;
+    box-shadow: 15px 15px 0px #dfa8c8;
+}
+
+.ribbon {
+    width: 175px;
+    position: absolute;
+    transform: rotate(-30deg);
+    left: -50px;
+    top: -125px;
+}
+
+.nose {
+    position: absolute;
+
+    width: 15px;
+    height: 10px;
+    background-color: rgb(255, 232, 131);
+    border-radius: 50%;
+    bottom: 30%;
+    left: calc(50% - 5px);
+}
+
+.mouth {
+    position: absolute;
+
+    width: 5px;
+    height: 5px;
+    background-color: rgb(192, 131, 95);
+    border-radius: 50%;
+    bottom: 20%;
+    left: calc(50% - 2.5px);
+}
+
+.body {
+    background-color: #ffcfeb;
+    box-shadow: 15px 15px 0px #dfa8c8;
+    display: flex;
+    flex-direction: column;
+    padding: 0 2rem 2rem 2rem;
+    gap: 1rem;
+    border-radius: 0 0 25px 25px;
+}
+
 .--calculator-buttons {
     display: grid;
-    grid-template-columns: repeat(4, 6rem);
-    grid-template-rows: repeat(5, 6rem);
+    grid-template-columns: repeat(4, 4rem);
+    grid-template-rows: repeat(5, 4rem);
+    gap: 1rem;
 }
 
 .--calculator-button#zero {
@@ -12,4 +148,52 @@
 .--calculator-button#enter {
     grid-column: 4 / 5;
     grid-row: 5 / 6;
+}
+
+.--calculator-button {
+    background-color: rgb(255, 216, 216);
+    border: none;
+    border-radius: 50%;
+    font-family: "Merienda", cursive;
+
+    font-size: 16px;
+
+    box-shadow: 5px 5px 0px rgb(223, 172, 172);
+}
+
+.--calculator-button.number {
+    background-color: rgb(255, 255, 255);
+    box-shadow: 5px 5px 0px rgb(228, 228, 228);
+}
+
+.--calculator-button#enter,
+.--calculator-button#clear {
+    background-color: rgb(173, 239, 255);
+    box-shadow: 5px 5px 0px rgb(140, 208, 224);
+}
+
+.display {
+    font-family: monospace;
+
+    font-size: 24px;
+    background-color: rgb(232, 255, 230);
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 1rem;
+    border-radius: 5px;
+    border: 2px solid rgb(182, 156, 166);
+}
+
+.--calculator-button:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 rgb(139, 107, 103);
+}
+
+.--calculator-button.number:active {
+    box-shadow: 2px 2px 0 rgb(104, 104, 104);
+}
+
+.--calculator-button#clear:active,
+.--calculator-button#enter:active {
+    box-shadow: 2px 2px 0 rgb(59, 121, 173);
 }
